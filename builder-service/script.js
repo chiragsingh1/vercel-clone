@@ -6,7 +6,7 @@ const mime = require("mime-types");
 const { Kafka, Partitioners } = require("kafkajs");
 
 const s3Client = new S3Client({
-    region: "ap-south-1",
+    region: "",
     credentials: {
         accessKeyId: "",
         secretAccessKey: "",
@@ -18,7 +18,7 @@ const DEPLOYMENT_ID = process.env.DEPLOYMENT_ID;
 
 const kafka = new Kafka({
     clientId: `docker-build-server-${DEPLOYMENT_ID}`,
-    brokers: ["kafka-122c7c8e-atthani-db.i.aivencloud.com:22438"],
+    brokers: [""],
     sasl: {
         username: "",
         password: "",

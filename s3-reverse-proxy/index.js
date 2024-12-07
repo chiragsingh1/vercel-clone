@@ -1,5 +1,6 @@
 const express = require("express");
 const httpProxy = require("http-proxy");
+const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 const PORT = 8000;
@@ -9,13 +10,18 @@ const BASE_PATH =
 
 const proxy = httpProxy.createProxy();
 
-app.use((req, res) => {
+const prisma = new PrismaClient();
+
+app.use(async (req, res) => {
     const hostname = req.hostname;
     const subdomain = hostname.split(".")[0];
 
-    // Custom Domain - DB Query
+    const queryResult =
+        await prisma.$queryRaw`SELECT id FROM "Project" WHERE LOWER("sub-domain") = LOWER(${subdomain})`;
 
-    const resolvesTo = `${BASE_PATH}/${subdomain}`;
+    const projectId = queryResult[0].id;
+
+    const resolvesTo = `${BASE_PATH}/${projectId}`;
 
     return proxy.web(req, res, { target: resolvesTo, changeOrigin: true });
 });

@@ -20,7 +20,7 @@ const prisma = new PrismaClient({});
 
 const kafka = new Kafka({
     clientId: `api-server`,
-    brokers: ["kafka-122c7c8e-atthani-db.i.aivencloud.com:22438"],
+    brokers: [""],
     sasl: {
         username: "",
         password: "",
@@ -32,7 +32,7 @@ const kafka = new Kafka({
 });
 
 const client = createClient({
-    host: "https://clickhouse-351470c9-atthani-db.i.aivencloud.com:22426",
+    host: "",
     database: "default",
     username: "",
     password: "",
@@ -43,7 +43,7 @@ const consumer = kafka.consumer({
 });
 
 const ecsClient = new ECSClient({
-    region: "ap-south-1",
+    region: "",
     credentials: {
         accessKeyId: "",
         secretAccessKey: "",
@@ -51,8 +51,8 @@ const ecsClient = new ECSClient({
 });
 
 const config = {
-    CLUSTER: "arn:aws:ecs:ap-south-1:975050349192:cluster/builderCluster",
-    TASK: "arn:aws:ecs:ap-south-1:975050349192:task-definition/builder-task-ecs",
+    CLUSTER: "",
+    TASK: "",
 };
 
 app.post("/project", async (req, res) => {
